@@ -5,9 +5,4 @@ class Produto(
     var categoriaProduto: String,
     var precoProduto: Float,
     var qtdEstoqueProduto: Int
-) {
-    companion object {
-
-        val listaProdutos = mutableListOf<Produto>()
-    }
-}
+)

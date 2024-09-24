@@ -2,7 +2,9 @@ package com.example.myapplication
 
 import CadastroProdutoScreen
 import DetalhesProdutoScreen
+import EstatisticasScreen
 import ListaProdutosScreen
+import ProdutoViewModel
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -14,7 +16,6 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.myapplication.ui.theme.MyApplicationTheme
-import com.example.myapplication.ui.theme.ViewModel.ProdutoViewModel
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,12 +40,18 @@ class MainActivity : ComponentActivity() {
                     }
                     composable("detalhesProduto/{nomeProduto}") { backStackEntry ->
                         val nomeProduto = backStackEntry.arguments?.getString("nomeProduto") ?: ""
-                        val produto =
-                            produtoViewModel.listaProdutos.find { it.nomeProduto == nomeProduto }
+                        val produto = produtoViewModel.listaProdutos.find { it.nomeProduto == nomeProduto }
                         if (produto != null) {
-                            DetalhesProdutoScreen(produto)
+                            DetalhesProdutoScreen(produto, navController)
                         }
                     }
+
+                    composable("estatisticas") {
+                        EstatisticasScreen(
+                            produtoViewModel
+                        )
+                    }
+
                 }
             }
         }
